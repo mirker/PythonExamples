@@ -4,6 +4,8 @@ import shutil
 import os
 import time
 import exifread
+import sys
+
 
 class ReadFailException(Exception):
     pass
@@ -18,7 +20,7 @@ def getOrignalDate(filename):
     data = exifread.process_file(fd)
     if data:
         try:
-            t = data['EXIF DateTimeOrignal']
+            t = data['EXIF DateTimeOriginal']
             return str(t).replace(":", ".")[:7]
         except:
             print("No exif: ", filename)
@@ -43,14 +45,14 @@ def classifyPictures(path):
                 print("cannot get time", filename)
                 continue
             info = info + "Taken time: " + t + " "
-            pwd = root +'\\'+t
-            dst = pwd + '\\'+filename
+            pwd = sys.argv[1] +'\\'+t
             if not os.path.exists(pwd):
                 os.mkdir(pwd)
-            print(info, dst)
-            shutil.copy2(filename, dst)
+            print(info, filename)
+            shutil.copy2(filename, pwd)
             #os.remove(filename)
 
+
 if __name__ == '__main__':
-    path = '.'
+    path = sys.argv[2]
     classifyPictures(path)
