@@ -29,8 +29,9 @@ def getOrignalDate(filename):
     print("get state", filename)
     return time.strftime("%Y.%m", time.localtime(state[-2]))
 
-def classifyPictures(path):
-    for root, dirs, files in os.walk(path, True):
+
+def classify_pics(file_url):
+    for root, dirs, files in os.walk(file_url, True):
         dir = []
         for filename in files:
             filename = os.path.join(root, filename)
@@ -38,21 +39,21 @@ def classifyPictures(path):
             if e.lower() not in ('.jpg', '.png', '*.mp4'):
                 continue
             info = "Filename: " + filename + " "
-            t=""
+            t = ""
             try:
                 t = getOrignalDate(filename)
             except Exception:
                 print("cannot get time", filename)
                 continue
             info = info + "Taken time: " + t + " "
-            pwd = sys.argv[1] +'\\'+t
+            pwd = sys.argv[1] + '\\' + t
             if not os.path.exists(pwd):
                 os.mkdir(pwd)
-            print(info, filename)
+            print(info, pwd)
             shutil.copy2(filename, pwd)
-            #os.remove(filename)
+            # os.remove(filename)
 
 
 if __name__ == '__main__':
     path = sys.argv[2]
-    classifyPictures(path)
+    classify_pics(path)

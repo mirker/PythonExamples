@@ -27,12 +27,12 @@ class CustomHTTPServer(HTTPServer):
 def run_server(port):
     try:
         server = CustomHTTPServer(DEFAULT_HOST, port)
-        print "Custom HTTP server started on port: %s" % port
+        print("Custom HTTP server started on port: %s" % port)
         server.serve_forever()
     except Exception, err:
-        print "Error: %s" % err
+        print("Error: %s" % err)
     except KeyboardInterrupt:
-        print "Server interrupted and is shutting down..."
+        print ("Server interrupted and is shutting down...")
         server.socket_close()
 
 if __name__ == '__main__':

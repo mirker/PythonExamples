@@ -22,10 +22,10 @@ class HTTPClient:
 
         try:
             errcode, errmsg, headers = http.getreply()
-        except Exception, e:
-            print "Client failed error code: %s message: %s headers:%s" % (errcode, errmsg, headers)
+        except IOError:
+            print("Client failed error code: %s message: %s headers:%s",  % (errcode, errmsg, headers))
         else:
-            print "Got homepage from %s" % self.host
+            print("Got homepage from %s" % self.host)
 
         file = http.getfile()
         return file.read()
